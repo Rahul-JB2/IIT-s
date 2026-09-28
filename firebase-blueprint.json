@@ -1,0 +1,100 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Student profile containing identification, Super-50 batch details, and aggregate metrics.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 150 },
+        "photoURL": { "type": "string", "maxLength": 500 },
+        "super50Roll": { "type": "string", "maxLength": 50 },
+        "targetAir": { "type": "string", "maxLength": 50 },
+        "targetPercentile": { "type": "string", "maxLength": 20 },
+        "dailyStreak": { "type": "number" },
+        "totalStudyHours": { "type": "number" },
+        "createdAt": { "type": "string", "maxLength": 50 },
+        "updatedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["userId", "email"]
+    },
+    "ChapterProgress": {
+      "title": "ChapterProgress",
+      "description": "6-milestone completion records, question count solved, and notes for a chapter.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "chapterId": { "type": "string", "maxLength": 64 },
+        "theory": { "type": "boolean" },
+        "conclusion1Page": { "type": "boolean" },
+        "mathongo": { "type": "boolean" },
+        "moduleEx2": { "type": "boolean" },
+        "eklavya": { "type": "boolean" },
+        "prevPartTest": { "type": "boolean" },
+        "mathongoSolved": { "type": "number" },
+        "moduleEx2Solved": { "type": "number" },
+        "eklavyaSolved": { "type": "number" },
+        "confidenceRating": { "type": "number" },
+        "notes": { "type": "string", "maxLength": 5000 },
+        "updatedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["userId", "chapterId"]
+    },
+    "DailyPlan": {
+      "title": "DailyPlan",
+      "description": "PCM daily goal recommendations and checklist for a specific calendar date.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "date": { "type": "string", "maxLength": 30 },
+        "goals": { "type": "array" },
+        "totalStudyMinutes": { "type": "number" },
+        "updatedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["userId", "date"]
+    },
+    "MockTestResult": {
+      "title": "MockTestResult",
+      "description": "Mock test scorecard including subject marks, rank, accuracy, and weak chapters.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "id": { "type": "string", "maxLength": 64 },
+        "testId": { "type": "string", "maxLength": 64 },
+        "testName": { "type": "string", "maxLength": 100 },
+        "date": { "type": "string", "maxLength": 30 },
+        "physicsScore": { "type": "number" },
+        "chemScore": { "type": "number" },
+        "mathScore": { "type": "number" },
+        "totalScore": { "type": "number" },
+        "maxMarks": { "type": "number" },
+        "batchRank": { "type": "number" },
+        "accuracyPercent": { "type": "number" },
+        "sillyMistakesCount": { "type": "number" },
+        "weakChapters": { "type": "array" },
+        "analysisNotes": { "type": "string", "maxLength": 3000 },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["userId", "testId", "totalScore"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile document storing personal goals and aggregated metrics."
+    },
+    "/users/{userId}/chapters/{chapterId}": {
+      "schema": "ChapterProgress",
+      "description": "6-milestone completion pipeline and notes per chapter."
+    },
+    "/users/{userId}/daily_plans/{planDate}": {
+      "schema": "DailyPlan",
+      "description": "Daily auto-generated PCM goals for the user."
+    },
+    "/users/{userId}/mock_results/{resultId}": {
+      "schema": "MockTestResult",
+      "description": "Test series scorecards and error analysis records."
+    }
+  }
+}

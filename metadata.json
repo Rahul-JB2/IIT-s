@@ -1,0 +1,6 @@
+{
+  "name": "JEE Super-50 Test Series Tracker",
+  "description": "BSEB Super-50 JEE Main & Advanced test planner, 6-milestone chapter tracker, and daily PCM auto-goal generator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
